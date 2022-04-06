@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import GeneralPurposeHttpService from './http_services/GeneralPurposeHttpService';
-import YelpHttpService from './http_services/yelp.http_services/YelpHttpServices';
+import GeneralPurposeHttpService from 'http_services/GeneralPurposeHttpService';
+import YelpHttpService from 'http_services/yelp.http_services/YelpHttpServices';
+import MenuForm from 'components/MenuForm/MenuForm';
 import { Container, Typography } from '@mui/material';
 const App = (props: any) => {
 
@@ -19,6 +20,7 @@ const App = (props: any) => {
       setMessage(response.data.compliment);
     }
 
+    
     navigator.geolocation.getCurrentPosition((pos) => {
       setLatitude(pos.coords.latitude);
       setLongitude(pos.coords.longitude);
@@ -27,10 +29,12 @@ const App = (props: any) => {
     fetchCompliment();
   }, [])
 
-  if (message === null) return null;
+  if (message === null) return null;  // need to make a loading page? 
 
   return (
-      <Typography variant="body2">{`${message}. Now lets choose something to eat!`}</Typography>
+      <div>
+        <MenuForm />
+      </div>
   )
 }
 
