@@ -1,12 +1,10 @@
-import React from 'react';
-import { 
+import React, { useState } from 'react';
+import {
     Button, TextField, Container,
     FormLabel, Grid, ButtonGroup,
     FormHelperText, FormControl,
     Slider,
 } from '@mui/material';
-
-import { useState } from 'react';
 
 const MenuForm = (props: any) => {
     const [tier, setTier] = useState<number>(1);
@@ -40,17 +38,17 @@ const MenuForm = (props: any) => {
     }
 
     const handleTextChange = (event: any) => {
-        if(event.target.id === "term") setTerm(event.target.value);
+        if (event.target.id === "term") setTerm(event.target.value);
         else setLocation(event.target.value);
     }
 
     const handleSlider = (event: Event, newValue: number | number[]) => {
         setDistance(newValue as number);
-        if(newValue <= 5) setMessage(sliderMessage[0]);
-        else if(newValue <= 10) setMessage(sliderMessage[1]);
-        else if(newValue <= 15) setMessage(sliderMessage[2]);
-        else if(newValue <= 20) setMessage(sliderMessage[3]);
-        else if(newValue <= 25) setMessage(sliderMessage[4]);
+        if (newValue <= 5) setMessage(sliderMessage[0]);
+        else if (newValue <= 10) setMessage(sliderMessage[1]);
+        else if (newValue <= 15) setMessage(sliderMessage[2]);
+        else if (newValue <= 20) setMessage(sliderMessage[3]);
+        else if (newValue <= 25) setMessage(sliderMessage[4]);
     }
 
     const buttonMessage = () => {
@@ -59,14 +57,14 @@ const MenuForm = (props: any) => {
     }
 
     const handler = () => {
-        const payload : any = {
+        const payload: any = {
             term: term,
             price: tier,
             open_now: true,
-            radius: distance * 1609,
+            radius: distance * 1600,
             categories: 'food',
         }
-        if (location === ''){ 
+        if (location === '') {
             payload.longitude = longitude;
             payload.latitude = latitude;
         } else {
@@ -75,10 +73,8 @@ const MenuForm = (props: any) => {
         props.submitHandler(payload);
     }
 
-    console.log(longitude)
-
-    return(
-        <Container maxWidth="sm" sx={{border: '1px black solid'}}>
+    return (
+        <Container maxWidth="sm" sx={{ border: '1px black solid' }}>
             <FormControl margin='normal'>
                 <Grid container spacing={3}>
                     <Grid item xs={12} container direction="column">
@@ -96,10 +92,10 @@ const MenuForm = (props: any) => {
                     <Grid item xs={6} container direction="column">
                         <FormLabel>How much we spending? </FormLabel>
                         <ButtonGroup>
-                            <Button variant={buttonVariant(1)} onClick={() =>handleButtonClick(1)}>$</Button>
-                            <Button variant={buttonVariant(2)} onClick={() =>handleButtonClick(2)}>$$</Button>
-                            <Button variant={buttonVariant(3)} onClick={() =>handleButtonClick(3)}>$$$</Button>
-                            <Button variant={buttonVariant(4)} onClick={() =>handleButtonClick(4)}>$$$$</Button>
+                            <Button variant={buttonVariant(1)} onClick={() => handleButtonClick(1)}>$</Button>
+                            <Button variant={buttonVariant(2)} onClick={() => handleButtonClick(2)}>$$</Button>
+                            <Button variant={buttonVariant(3)} onClick={() => handleButtonClick(3)}>$$$</Button>
+                            <Button variant={buttonVariant(4)} onClick={() => handleButtonClick(4)}>$$$$</Button>
                         </ButtonGroup>
                         <FormHelperText>{tierListComments[tier - 1]}</FormHelperText>
                     </Grid>
@@ -125,7 +121,7 @@ const MenuForm = (props: any) => {
                             value={location}
                             onChange={handleTextChange}
                         />
-                    </Grid> }
+                    </Grid>}
                     <Grid item xs={12}>
                         <Button fullWidth variant="contained" onClick={handler}>{buttonMessage()}</Button>
                     </Grid>
