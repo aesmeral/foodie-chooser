@@ -20,7 +20,6 @@ const App = (props: any) => {
       setMessage(response.data.compliment);
     }
 
-    
     navigator.geolocation.getCurrentPosition((pos) => {
       setLatitude(pos.coords.latitude);
       setLongitude(pos.coords.longitude);
@@ -29,11 +28,16 @@ const App = (props: any) => {
     fetchCompliment();
   }, [])
 
+  const fetchData = async (query: string) => {
+    const response = await YelpHttpService.getBusinessSearch(query);
+    console.log(response);
+  }
+
   if (message === null) return null;  // need to make a loading page? 
 
   return (
       <div>
-        <MenuForm />
+        <MenuForm longitude={longitude} latitude={latitude} submitHandler={fetchData}/>
       </div>
   )
 }
